@@ -16,48 +16,41 @@ import io.swagger.v3.oas.models.responses.ApiResponses;
 public class SwaggerConfig {
 	
 	@Bean
-	public OpenAPI springBlogPessoalOpenAPI() {
+	public OpenAPI springOpenAPI() {
 		return new OpenAPI()
 				.info(new Info()
-					.title("Projeto Blog Pessoal")
-					.description("Projeto Blog Pessoal - Generation Brasil")
-					.version("v0.0.1")
-				.license(new License()
-					.name("Generation Brasil")
-					.url("https://brazil.generation.org/"))
-				.contact(new Contact()
-					.name("Blog Pessoal Generation")
-					.url("https://github.com/fabiolasoufer/Blog_Pessoal_GenerationBR/tree/main")
-					.email("fabiolasoufer@gmail.com")))
+						.title("Blog Pessoal")
+						.description("Blog Pessoal Generation")
+						.version("v0.0.1")
+						.license(new License()
+								.name("Gees Brazil")
+								.url("<https://brazil.generation.org/>"))
+						.contact(new Contact()
+								.name("Fabíola Souza")
+								.url("<https://github.com/fabiolasoufer/Blog_Pessoal_GenerationBR>")
+								.email("fabiolasoufer@gmail.com")))
 				.externalDocs(new ExternalDocumentation()
-					.description("Github")
-					.url("https://github.com/conteudoGeneration/"));
-	}
-
-	@Bean
-	public OpenApiCustomiser customerGlobalHeaderOpenApiCustomiser() {
-
-		return openApi -> {
-			openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(operation -> {
-
-				ApiResponses apiResponses = operation.getResponses();
-
-				apiResponses.addApiResponse("200", createApiResponse("Sucesso!"));
-				apiResponses.addApiResponse("201", createApiResponse("Objeto Persistido!"));
-				apiResponses.addApiResponse("204", createApiResponse("Objeto Excluído!"));
-				apiResponses.addApiResponse("400", createApiResponse("Erro na Requisição!"));
-				apiResponses.addApiResponse("401", createApiResponse("Acesso Não Autorizado!"));
-				apiResponses.addApiResponse("404", createApiResponse("Objeto Não Encontrado!"));
-				apiResponses.addApiResponse("500", createApiResponse("Erro na Aplicação!"));
-
-			}));
-		};
+						.description("Github Project")
+						.url("<https://github.com/fabiolasoufer/Blog_Pessoal_GenerationBR>"));
 	}
 
 	private ApiResponse createApiResponse(String message) {
-
 		return new ApiResponse().description(message);
+	}
 
+	@Bean
+	public OpenApiCustomiser customerGlobalResponseStatus() {
+		return openApi -> {
+			openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(operation -> {
+				ApiResponses api = operation.getResponses();
+
+				api.addApiResponse("200", createApiResponse("Sucess!"));
+				api.addApiResponse("201", createApiResponse("Created!"));
+				api.addApiResponse("400", createApiResponse("Request error!"));
+				api.addApiResponse("401", createApiResponse("Not authorized!"));
+				api.addApiResponse("500", createApiResponse("Internal server Error!"));
+			}));
+		};
 	}
 	
 }
