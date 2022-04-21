@@ -33,7 +33,10 @@ public class Postagem {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
-		
+
+	@Size(max = 5000)
+	private String foto;	
+
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
@@ -72,6 +75,14 @@ public class Postagem {
 	
 	public void setData(Date data) {
 		this.data = data;
+	}
+		
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 	
 	public Tema getTema() {
