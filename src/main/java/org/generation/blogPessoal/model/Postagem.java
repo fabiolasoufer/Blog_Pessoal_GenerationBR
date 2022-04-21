@@ -35,7 +35,7 @@ public class Postagem {
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 
 	@Size(max = 5000)
-	private String foto;	
+	private String imagem;	
 
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
@@ -77,12 +77,12 @@ public class Postagem {
 		this.data = data;
 	}
 		
-	public String getFoto() {
-		return foto;
+	public String getImagem() {
+		return imagem;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 	
 	public Tema getTema() {
